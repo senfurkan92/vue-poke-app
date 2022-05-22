@@ -18,5 +18,11 @@
         >
             Berries
         </router-link>
+        <router-link :to="{name: 'evolutions'}"
+            class="pb-3 text-xl hover:text-pink-400 hover:underline transition-all"
+            active-class="text-violet-600 scale-105"
+        >
+            Evolutions
+        </router-link>
   </div>
 </template>

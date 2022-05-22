@@ -29,4 +29,9 @@ export default [
     component: () => import('@/views/berries/app-index_id.vue'),
     name: 'berries-id',
   },
+  {
+    path: '/evolutions',
+    component: () => import('@/views/evolutions/app-index.vue'),
+    name: 'evolutions',
+  },
 ];

@@ -28,12 +28,12 @@ const fetching = ref(false);
 
 const fetchPBerries = async () => {
   fetching.value = true;
-  await store.dispatch('berries/fecthBerries');
+  await store.dispatch('berries/fetchBerries');
   fetching.value = false;
 };
 
 onMounted(() => {
-  store.dispatch('berries/fecthBerries');
+  store.dispatch('berries/fetchBerries');
 });
 </script>
 

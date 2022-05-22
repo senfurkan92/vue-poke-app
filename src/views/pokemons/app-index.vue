@@ -28,12 +28,12 @@ const fetching = ref(false);
 
 const fetchPokemons = async () => {
   fetching.value = true;
-  await store.dispatch('pokemons/fecthPokemons');
+  await store.dispatch('pokemons/fetchPokemons');
   fetching.value = false;
 };
 
 onMounted(() => {
-  store.dispatch('pokemons/fecthPokemons');
+  store.dispatch('pokemons/fetchPokemons');
 });
 </script>
 

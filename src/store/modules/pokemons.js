@@ -31,7 +31,7 @@ export default {
     },
   },
   actions: {
-    async fecthPokemons({ state, commit }) {
+    async fetchPokemons({ state, commit }) {
       if (state.total !== state.list.length) {
         const offset = state.list.length;
         const url = `/pokemon/?limit=${state.limit}&offset=${offset}`;

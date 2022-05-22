@@ -34,22 +34,26 @@
         </ul>
       </div>
       <div class="sm:col-span-2 col-span-3 p-4">
-        <h3 class="text-2xl font-bold underline pb-4">Types</h3>
+        <h3 class="text-2xl font-bold underline pb-4">Firmness</h3>
         <ul>
-          <li v-for="type, index in types" :key="index"
-            class="pb-2 capitalize"
-          >
-            {{type.name}}
+          <li class="capitalize">
+            {{berry.firmness?.name}}
+          </li>
+        </ul>
+        <h3 class="text-2xl font-bold underline pb-4">Natural Gift Type</h3>
+        <ul>
+          <li class="capitalize">
+            {{berry.natural_gift_type?.name}}
           </li>
         </ul>
       </div>
       <div class="sm:col-span-2 col-span-6 p-4">
-        <h3 class="text-2xl font-bold underline pb-4">Abilities</h3>
+        <h3 class="text-2xl font-bold underline pb-4">Flavors</h3>
         <ul>
-          <li v-for="ability, index in abilities" :key="index"
+          <li v-for="flavor, index in flavors" :key="index"
             class="pb-2 capitalize"
           >
-            {{ability.name}}
+            {{flavor.name}} (Potency: {{flavor.potency}})
           </li>
         </ul>
       </div>
@@ -67,26 +71,18 @@ const store = useStore();
 
 const berry = ref({});
 
-const abilities = computed(() => (
-  berry.value?.abilities
-    ? berry.value.abilities.map((x) => ({
-      id: x.ability.url.split('/')[6],
-      name: x.ability.name,
-    })) : []
-));
-
-const types = computed(() => (
-  berry.value?.types
-    ? berry.value.types.map((x) => ({
-      id: x.type.url.split('/')[6],
-      name: x.type.name,
+const flavors = computed(() => (
+  berry.value?.flavors
+    ? berry.value.flavors.map((x) => ({
+      potency: x.potency,
+      name: x.flavor.name,
+      id: x.flavor.url.split('/')[6],
     })) : []
 ));
 
 store.dispatch('berries/fetchBerry', route.params.id)
   .then((resp) => {
     berry.value = resp.data;
-    console.log(resp.data);
   });
 </script>
 

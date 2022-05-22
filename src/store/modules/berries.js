@@ -26,7 +26,7 @@ export default {
     },
   },
   actions: {
-    async fecthBerries({ state, commit }) {
+    async fetchBerries({ state, commit }) {
       if (state.total !== state.list.length) {
         const offset = state.list.length;
         const url = `/berry/?limit=${state.limit}&offset=${offset}`;
@@ -39,12 +39,6 @@ export default {
           imgSrc: '',
         }));
         commit('pushBerries', berries);
-        // assign imgSrc
-        const axiosItems = [];
-        berries.forEach((x) => {
-          const pokeUrl = `/berry/${x.id}`;
-          axiosItems.push(axiosInstance.get(pokeUrl));
-        });
       }
       return true;
     },
