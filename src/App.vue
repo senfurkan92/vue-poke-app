@@ -1,7 +1,7 @@
 <template>
   <AppLayout>
     <template #header>
-      <div class="flex border-b shadow">
+      <div class="flex border-b shadow sticky top-0 z-30 bg-white">
         <div class="h-100">
           <button class="btn btn-outline border-0 btn-square rounded-none" @click="isShow=true">
             <menu-2-icon/>
@@ -37,9 +37,4 @@ import AppSidebar from '@/components/ui/app-sidebar.vue';
 import AppMenu from '@/components/menu/app-menu.vue';
 
 const isShow = ref(false);
-
 </script>
-
-<style scoped>
-
-</style>

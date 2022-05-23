@@ -46,14 +46,18 @@ export default {
 
         // get evolution chains
         const chains = [];
-        const chainResps = await axios.all(chainQueries);
-        chainResps.forEach((resp) => {
-          const chain = {
-            id: resp.data.id,
-            chain: resp.data.chain,
-          };
-          chains.push(chain);
-        });
+        try {
+          const chainResps = await axios.all(chainQueries);
+          chainResps.forEach((resp) => {
+            const chain = {
+              id: resp.data.id,
+              chain: resp.data.chain,
+            };
+            chains.push(chain);
+          });
+        } catch (error) {
+          chains.push(null);
+        }
         // push list
         commit('pushEvolutions', chains);
       }
