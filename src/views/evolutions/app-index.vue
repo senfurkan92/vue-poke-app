@@ -1,14 +1,14 @@
 <template>
   <div class="colorful">
     <div class="grid grid-cols-3 p-3 gap-2 border-b border-slate-400 colorful-item"
-      v-for="chain in evos" :key="chain.chainId"
+      v-for="chain in $store.getters['evolutions/getArrangedEvos']" :key="chain.chainId"
     >
-      <div class="col-span-1"
+      <div class="md:col-span-1 col-span-3 md:p-0 pb-2 md:border-0 border-b-2 border-slate-700"
         v-for="order in chain.chainOrders.sort((a, b) => a.no - b.no)"
         :key="order.no"
       >
         <div class="flex flex-col">
-          <div v-for="poke in order.list" :key="poke.pokeId">
+          <div v-for="poke in order.list" :key="poke.pokeId" class="mb-1 mt-1">
             <AppCard
               :routeName="'pokemons-id'"
               :item="{
@@ -34,59 +34,12 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useStore } from 'vuex';
 import AppCard from '@/components/ui/app-card.vue';
 
 const store = useStore();
 store.dispatch('evolutions/fetchEvolutions');
-
-function getEvolvesTo(item, chainId, arr, order = 0) {
-  const evolve = {
-    chainOrder: order,
-    name: item.species.name,
-    pokeId: Number(item.species.url.toString().split('/')[6]),
-  };
-  if (item.evolves_to.length > 0) {
-    // continue to recursive
-    item.evolves_to.forEach((x) => getEvolvesTo(x, chainId, arr, order + 1));
-  }
-  let sub = arr.find((x) => x.chainId === chainId);
-  if (sub) {
-    const currentOrder = sub.chainOrders.find((x) => x.no === evolve.chainOrder);
-    if (currentOrder) {
-      currentOrder.list.push(evolve);
-    } else {
-      sub.chainOrders.push({
-        no: evolve.chainOrder,
-        list: [evolve],
-      });
-    }
-  } else {
-    sub = {
-      chainId,
-      chainOrders: [
-        {
-          no: evolve.chainOrder,
-          list: [evolve],
-        },
-      ],
-    };
-    arr.push(sub);
-  }
-}
-
-const evos = computed(() => {
-  const list = [...store.state.evolutions.list].filter((x) => x != null);
-  if (list) {
-    const arranged = [];
-    list.forEach((x) => {
-      getEvolvesTo(x.chain, x.id, arranged);
-    });
-    return arranged;
-  }
-  return [];
-});
 
 const fetching = ref(false);
 

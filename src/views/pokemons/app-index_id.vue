@@ -16,11 +16,11 @@
           </li>
           <li class="pb-2">
             <b>Height:</b>
-            <br/>&ensp;<span>{{pokemon.height}} kg</span>
+            <br/>&ensp;<span>{{pokemon.height/10}} m</span>
           </li>
           <li class="pb-2">
             <b>Weight:</b>
-            <br/>&ensp;<span>{{pokemon.weight}} inch</span>
+            <br/>&ensp;<span>{{pokemon.weight/10}} kg</span>
           </li>
         </ul>
       </div>
